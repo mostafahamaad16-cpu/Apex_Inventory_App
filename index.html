@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تطبيق الجرد الذكي - Apex</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>نظام الجرد الفعلي - Apex</h2>
+        </header>
+
+        <div class="card data-management">
+            <h3>إدارة بيانات الجرد</h3>
+            
+            <div class="import-section">
+                <label for="excelFile" class="file-upload-label">📁 استيراد شيت إكسيل (للماركة)</label>
+                <input type="file" id="excelFile" accept=".xlsx, .xls" class="hidden">
+            </div>
+
+            <hr>
+
+            <div class="manual-add-section">
+                <h4>إضافة منتج يدوياً</h4>
+                <input type="text" id="newCode" placeholder="كود المنتج (السيستم)">
+                <input type="text" id="newName" placeholder="الاسم والطراز (مثل: كابل T-500)">
+                <input type="number" id="newBookQty" placeholder="الرصيد الدفتري">
+                <button onclick="addManualProduct()" class="btn-success full-width">إضافة للمنتجات</button>
+            </div>
+        </div>
+
+        <div class="search-section card">
+            <input type="text" id="searchInput" placeholder="أدخل كود المنتج أو الطراز للبحث...">
+            <button onclick="searchProduct()" class="btn-primary">بحث وبدء الجرد</button>
+        </div>
+
+        <div id="productSection" class="product-section card hidden">
+            <h3 id="productName">اسم المنتج</h3>
+            <p>كود: <strong id="productCode" class="text-blue">---</strong></p>
+            
+            <div class="qty-display">
+                <div class="qty-box book-qty">
+                    <span>الدفتري</span>
+                    <strong id="bookQty">0</strong>
+                </div>
+                <div class="qty-box actual-qty">
+                    <span>الفعلي المسجل</span>
+                    <strong id="savedActualQty">0</strong>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <label>الكمية المراد إضافتها (يقبل عمليات حسابية مثل 5*3):</label>
+                <input type="text" id="mathInput" placeholder="مثال: 5*3 أو 10">
+                
+                <div class="temp-accumulated">
+                    الكمية المجمعة حالياً: <span id="tempQty">0</span>
+                </div>
+
+                <div class="action-buttons">
+                    <button onclick="addCalculatedQty()" class="btn-secondary">تجميع (+)</button>
+                    <button onclick="overrideCalculatedQty()" class="btn-warning">إحلال (تعديل)</button>
+                </div>
+                
+                <button onclick="saveFinalActual()" class="btn-success full-width">اعتماد الكمية للفعلي</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
