@@ -20,7 +20,7 @@ function addProductsToDB(newProducts) {
         // التحقق مما إذا كان الكود موجود مسبقاً لمنع التكرار
         const existingIndex = currentProducts.findIndex(p => p.code === newP.code);
         if (existingIndex >= 0) {
-            // تحديث الدفتري والاسم لو موجود
+            // تحديث الدفتري والاسم لو موجود وتصفير الفعلي
             currentProducts[existingIndex].bookQty = newP.bookQty;
             currentProducts[existingIndex].name = newP.name;
         } else {
